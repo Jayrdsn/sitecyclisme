@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Nivcat{% endblock %}
+
+{% block body %}
+    <h1>Edit Nivcat</h1>
+
+    {{ include('nivcat/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('nivcat_index') }}">back to list</a>
+
+    {{ include('nivcat/_delete_form.html.twig') }}
+{% endblock %}
