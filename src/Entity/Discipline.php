@@ -28,7 +28,6 @@ class Discipline
      */
     private $libelle;
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -45,7 +44,6 @@ class Discipline
 
         return $this;
     }
-
 
 
 }

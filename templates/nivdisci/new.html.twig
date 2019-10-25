@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Nivdisci{% endblock %}
+
+{% block body %}
+    <h1>Create new Nivdisci</h1>
+
+    {{ include('nivdisci/_form.html.twig') }}
+
+    <a href="{{ path('nivdisci_index') }}">back to list</a>
+{% endblock %}

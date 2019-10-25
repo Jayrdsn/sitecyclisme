@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nivdisci index{% endblock %}
+
+{% block body %}
+    <h1>Nivdisci index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for nivdisci in nivdiscis %}
+            <tr>
+                <td>{{ nivdisci.id }}</td>
+                <td>
+                    <a href="{{ path('nivdisci_show', {'id': nivdisci.id}) }}">show</a>
+                    <a href="{{ path('nivdisci_edit', {'id': nivdisci.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('nivdisci_new') }}">Create new</a>
+{% endblock %}
