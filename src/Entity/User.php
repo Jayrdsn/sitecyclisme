@@ -3,22 +3,21 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  *
- * @ORM\Table(name="user", indexes={@ORM\Index(name="adresse", columns={"adresse"}), @ORM\Index(name="id_categorie", columns={"id_categorie"})})
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="adresse", columns={"adresse"}), @ORM\Index(name="id_categorie", columns={"id_discipline"}), @ORM\Index(name="id_niveau", columns={"id_niveau"})})
  * @ORM\Entity
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -37,30 +36,35 @@ class User implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=false)
      */
     private $email;
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=1500, nullable=false)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="json")
+     * @var json|null
+     *
+     * @ORM\Column(name="roles", type="json", nullable=true)
      */
     private $roles;
 
     /**
-     * @var \Categorie
+     * @var \Discipline
      *
      * @ORM\ManyToOne(targetEntity="Discipline")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_discipline", referencedColumnName="id")
      * })
      */
-    private $idCategorie;
+    private $idDiscipline;
 
     /**
      * @var \Adresse
@@ -71,6 +75,16 @@ class User implements UserInterface
      * })
      */
     private $adresse;
+
+    /**
+     * @var \Niveau
+     *
+     * @ORM\ManyToOne(targetEntity="Niveau")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_niveau", referencedColumnName="id")
+     * })
+     */
+    private $idNiveau;
 
     public function getId(): ?int
     {
@@ -113,39 +127,9 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function getPassword(): ?string
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->email;
-    }
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -155,30 +139,26 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
+    public function getRoles(): ?array
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        return $this->roles;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
+    public function setRoles(?array $roles): self
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-    public function getIdCategorie(): ?Discipline
-    {
-        return $this->idCategorie;
+        $this->roles = $roles;
+
+        return $this;
     }
 
-    public function setIdCategorie(?Discipline $idCategorie): self
+    public function getIdDiscipline(): ?Discipline
     {
-        $this->idCategorie = $idCategorie;
+        return $this->idDiscipline;
+    }
+
+    public function setIdDiscipline(?Discipline $idDiscipline): self
+    {
+        $this->idDiscipline = $idDiscipline;
 
         return $this;
     }
@@ -191,6 +171,18 @@ class User implements UserInterface
     public function setAdresse(?Adresse $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getIdNiveau(): ?Niveau
+    {
+        return $this->idNiveau;
+    }
+
+    public function setIdNiveau(?Niveau $idNiveau): self
+    {
+        $this->idNiveau = $idNiveau;
 
         return $this;
     }

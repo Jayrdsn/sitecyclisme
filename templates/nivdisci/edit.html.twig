@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Nivdisci{% endblock %}
+
+{% block body %}
+    <h1>Edit Nivdisci</h1>
+
+    {{ include('nivdisci/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('nivdisci_index') }}">back to list</a>
+
+    {{ include('nivdisci/_delete_form.html.twig') }}
+{% endblock %}
