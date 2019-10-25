@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User
  *
  * @ORM\Table(name="user", indexes={@ORM\Index(name="adresse", columns={"adresse"}), @ORM\Index(name="id_categorie", columns={"id_discipline"}), @ORM\Index(name="id_niveau", columns={"id_niveau"})})
  * @ORM\Entity
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
