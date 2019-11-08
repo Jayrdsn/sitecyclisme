@@ -2,25 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Participation;
+use App\Entity\Discipline;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParticipationType extends AbstractType
+class DisciplineType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idUser')
-            ->add('idNiveau')
+            ->add('libelle')
+
         ;
     }
 
-    public function configusreOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Participation::class,
+            'data_class' => Discipline::class,
         ]);
     }
 }

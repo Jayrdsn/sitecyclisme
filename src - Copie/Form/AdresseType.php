@@ -2,25 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Participation;
+use App\Entity\Adresse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParticipationType extends AbstractType
+class AdresseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idUser')
-            ->add('idNiveau')
+            ->add('nrue')
+            ->add('rue')
+            ->add('codepostal')
+            ->add('ville')
         ;
     }
 
-    public function configusreOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Participation::class,
+            'data_class' => Adresse::class,
         ]);
     }
 }

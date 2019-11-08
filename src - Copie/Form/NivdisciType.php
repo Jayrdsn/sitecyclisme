@@ -2,25 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Participation;
+use App\Entity\Nivdisci;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParticipationType extends AbstractType
+class NivdisciType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idUser')
+            ->add('idDiscipline')
             ->add('idNiveau')
         ;
     }
 
-    public function configusreOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Participation::class,
+            'data_class' => Nivdisci::class,
         ]);
     }
 }
