@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * User
  *
@@ -187,6 +188,24 @@ class User implements UserInterface
         $this->idNiveau = $idNiveau;
 
         return $this;
+    }
+
+    // *******  contains 1 abstract method and must therefore be declared abstract ******
+
+       public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
     }
 
 
