@@ -127,5 +127,8 @@ class Evenement
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return $this->idNivdisci->getIdNiveau()->getNiveau();
+    }
 }

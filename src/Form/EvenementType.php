@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Adresse;
 use App\Form\AdresseType;
+use App\Form\NivdisciType;
 use App\Entity\Evenement;
 use phpDocumentor\Reflection\Types\Collection;
 use Symfony\Component\Form\AbstractType;
@@ -20,13 +21,8 @@ class EvenementType extends AbstractType
             ->add('description')
             ->add('dateDebut')
             ->add('dateFin')
-            ->add('idNivdisci', EntityType::class,
-                array('class' => 'App\Entity\Nivdisci',
-                    'label' => 'Discipline :',
-                    'choice_label' => function($idDiscipline){
-                        return $idNivdisci->getDiscipline()->getLibelle();
-
-                    },))
+            ->add('idNivdisci', NivdisciType::class)
+           
 
             ->add('adresse' , AdresseType::class );
 

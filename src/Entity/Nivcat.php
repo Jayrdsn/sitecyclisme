@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Nivdisci
+ * Nivcat
  *
- * @ORM\Table(name="nivdisci", indexes={@ORM\Index(name="id_discipline", columns={"id_discipline"}), @ORM\Index(name="id_niveau", columns={"id_niveau"})})
+ * @ORM\Table(name="nivcat", indexes={@ORM\Index(name="id_discipline", columns={"id_discipline"}), @ORM\Index(name="id_niveau", columns={"id_niveau"})})
  * @ORM\Entity
  */
-class Nivdisci
+class Nivcat
 {
     /**
      * @var int
@@ -40,35 +40,6 @@ class Nivdisci
      * })
      */
     private $idNiveau;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getIdDiscipline(): ?Discipline
-    {
-        return $this->idDiscipline;
-    }
-
-    public function setIdDiscipline(?Discipline $idDiscipline): self
-    {
-        $this->idDiscipline = $idDiscipline;
-
-        return $this;
-    }
-
-    public function getIdNiveau(): ?Niveau
-    {
-        return $this->idNiveau;
-    }
-
-    public function setIdNiveau(?Niveau $idNiveau): self
-    {
-        $this->idNiveau = $idNiveau;
-
-        return $this;
-    }
 
 
 }

@@ -69,6 +69,9 @@ class Nivdisci
 
         return $this;
     }
-
+    public function __toString()
+    {
+        return $this->idNiveau->getNiveau();
+    }
 
 }
