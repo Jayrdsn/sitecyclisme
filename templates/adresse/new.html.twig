@@ -5,7 +5,12 @@
 {% block body %}
     <h1>Create new Adresse</h1>
 
+    <div class="clo-sm-8">
     {{ include('adresse/_form.html.twig') }}
+    </div>
 
-    <a href="{{ path('adresse_index') }}">back to list</a>
+    <button type="button" class="btn btn-danger">
+    	<a href="{{ path('adresse_index') }}">back to list</a>
+    </button>
+
 {% endblock %}

@@ -5,8 +5,8 @@
 {% block body %}
     <h1>Adresse index</h1>
 
-    <table class="table">
-        <thead>
+    <table id="table_id" class="table">
+        <thead class="thead-dark">
             <tr>
                 <th>IdAdresse</th>
                 <th>Nrue</th>
@@ -30,6 +30,7 @@
                 </td>
             </tr>
         {% else %}
+
             <tr>
                 <td colspan="6">no records found</td>
             </tr>
@@ -37,5 +38,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('adresse_new') }}">Create new</a>
+    <button type="button" class="btn btn-danger">
+        <a style="text-decoration:none; color: black" href="{{ path('adresse_new') }}">Create new</a>
+    </button>
+    
 {% endblock %}

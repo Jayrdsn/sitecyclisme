@@ -1,4 +1,13 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    {{ form_row(form.nrue, {'attr': {'placeholder': "Numero de la rue "}}) }}
+
+    {{ form_row(form.rue, {'attr': {'placeholder': "Nom de la rue "}}) }}
+
+    {{ form_row(form.codepostal, {'attr': {'placeholder': "Code postal "}}) }}
+
+    {{ form_row(form.ville, {'attr': {'placeholder': "Ville"}}) }}
+
+    <button class="btn btn-danger">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
