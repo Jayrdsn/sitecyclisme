@@ -25,7 +25,7 @@
                 <td>{{ adresse.codepostal }}</td>
                 <td>{{ adresse.ville }}</td>
                 <td>
-                    <a href="{{ path('adresse_show', {'idAdresse': adresse.idAdresse}) }}">show</a>
+                    <a style="text-decoration-color: red" href="{{ path('adresse_show', {'idAdresse': adresse.idAdresse}) }}">show</a>
                     <a href="{{ path('adresse_edit', {'idAdresse': adresse.idAdresse}) }}">edit</a>
                 </td>
             </tr>
@@ -39,7 +39,7 @@
     </table>
 
     <button type="button" class="btn btn-danger">
-        <a style="text-decoration:none; color: black" href="{{ path('adresse_new') }}">Create new</a>
+        <a href="{{ path('adresse_new') }}">Create new</a>
     </button>
     
 {% endblock %}
