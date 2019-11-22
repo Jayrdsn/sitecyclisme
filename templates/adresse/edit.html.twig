@@ -9,14 +9,8 @@
     	<div class="col-lg-10">
     		{{ include('adresse/_form.html.twig', {'button_label': 'Update'}) }}
     	</div>
-    	{'button_label': 'Update'}
-    	<div class="col-lg-offset-6">
-    		<button type="button" class="btn btn-danger">
-	 			<a href="{{ path('adresse_index') }}">❮ Previous</a>
-			</button>
+    	<div>
+		    {#{ include('adresse/_delete_form.html.twig') }#}
     	</div>	
 	</div>
-
-
-    {{ include('adresse/_delete_form.html.twig') }}
 {% endblock %}

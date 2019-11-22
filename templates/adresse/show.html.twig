@@ -3,40 +3,54 @@
 {% block title %}Adresse{% endblock %}
 
 {% block body %}
+<div class="containe">
     <h1>Adresse</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>IdAdresse</th>
-                <td>{{ adresse.idAdresse }}</td>
-            </tr>
-            <tr>
-                <th>Nrue</th>
-                <td>{{ adresse.nrue }}</td>
-            </tr>
-            <tr>
-                <th>Rue</th>
-                <td>{{ adresse.rue }}</td>
-            </tr>
-            <tr>
-                <th>Codepostal</th>
-                <td>{{ adresse.codepostal }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ adresse.ville }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div >
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>IdAdresse</th>
+                    <td>{{ adresse.idAdresse }}</td>
+                </tr>
+                <tr>
+                    <th>Nrue</th>
+                    <td>{{ adresse.nrue }}</td>
+                </tr>
+                <tr>
+                    <th>Rue</th>
+                    <td>{{ adresse.rue }}</td>
+                </tr>
+                <tr>
+                    <th>Codepostal</th>
+                    <td>{{ adresse.codepostal }}</td>
+                </tr>
+                <tr>
+                    <th>Ville</th>
+                    <td>{{ adresse.ville }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <button type="button" class="btn btn-danger">
-        <a href="{{ path('adresse_index') }}">❮ Previous</a>
-    </button>
+    <div class="row">
+        <div class="">
+            <button type="button" class="btn btn-danger">
+                <a href="{{ path('adresse_index') }}">❮ Previous</a>
+            </button>
+        </div>
+        <div class="">
+            <button type="button" class="btn btn-danger">
+                <a href="{{ path('adresse_edit', {'idAdresse': adresse.idAdresse}) }}">edit</a>
+            </button>
+        </div>
+        <div class="col-lg-offset-10">
+            {{ include('adresse/_delete_form.html.twig') }}
+        </div>
+        
+    </div>
+</div>
+    
 
-    <button type="button" class="btn btn-danger">
-        <a href="{{ path('adresse_edit', {'idAdresse': adresse.idAdresse}) }}">edit</a>
-    </button>
-
-    {{ include('adresse/_delete_form.html.twig') }}
+    
 {% endblock %}

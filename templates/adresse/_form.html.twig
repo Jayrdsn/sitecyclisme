@@ -3,23 +3,25 @@
 {{ form_start(form) }}
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-2 col-lg-offset-1">
-		    	{{ form_row(form.nrue, {'attr': {'placeholder': "Numero de la rue "}}) }}
+			<div class="col-lg-4 col-lg-offset-1">
+		    	{{ form_row(form.nrue, {'attr': {'placeholder': "N° de rue "}}) }}
 		   	</div>
-		   	<div class="col-lg-4 col-lg-offset-2">
+		   	<div class="col-lg-8 col-lg-offset-1">
 		   		{{ form_row(form.rue, {'attr': {'placeholder': "Nom de la rue "}}) }}
 		   	</div>				
 		</div>
+
 		<div class="row">
-			<div class="col-lg-1">
+			<div class="col-lg-4">
 				{{ form_row(form.codepostal, {'attr': {'placeholder': "Code postal "}}) }}
 		    </div>
-		    <div class="col-lg-offset-3 col-lg-5">
+		    <div class="col-lg-offset-1 col-lg-8">
 			    {{ form_row(form.ville, {'attr': {'placeholder': "Ville"}}) }}
+			</div>
 		</div>
-		</div>
+
 		<div class="row">
-			<div class="col-lg-offset-6">
+			<div>
     			<button type="button" class="btn btn-danger">
     				<a href="{{ path('adresse_index') }}">❮ Previous</a>
     			</button>
@@ -28,5 +30,9 @@
 				<button class="btn btn-danger">{{ button_label|default('Save') }}</button>
 			</div>
 		</div>
+
 	</div>
 {{ form_end(form) }}
+
+		    
+
