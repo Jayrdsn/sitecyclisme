@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>IdDiscipline</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
         {% for nivdisci in nivdiscis %}
             <tr>
                 <td>{{ nivdisci.id }}</td>
+                 <td>{{ nivdisci.idDiscipline }}</td>
                 <td>
                     <a href="{{ path('nivdisci_show', {'id': nivdisci.id}) }}">show</a>
                     <a href="{{ path('nivdisci_edit', {'id': nivdisci.id}) }}">edit</a>

@@ -21,7 +21,10 @@ class NivdisciController extends AbstractController
     {
         $nivdiscis = $this->getDoctrine()
             ->getRepository(Nivdisci::class)
-            ->findAll();
+            ->createQueryBuilder('nivdisci')
+            ->orderBy('nivdisci.idDiscipline', 'ASC')
+            ->getQuery()
+            ->getResult();
 
         return $this->render('nivdisci/index.html.twig', [
             'nivdiscis' => $nivdiscis,

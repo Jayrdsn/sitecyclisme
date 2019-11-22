@@ -7,6 +7,8 @@ use App\Form\AdresseType;
 
 
 use App\Entity\Evenement;
+use App\Entity\Nivdisci;
+use Doctrine\ORM\EntityRepository;
 use phpDocumentor\Reflection\Types\Collection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,14 +24,13 @@ class EvenementType extends AbstractType
             ->add('description')
             ->add('dateDebut')
             ->add('dateFin')
-            ->add('idNivdisci', EntityType::class,
-             array('class' => 'App\Entity\Nivdisci',
-                'label' => 'Discipline :',
-                'choice_label' => function($idNivdisci){
-                    return $idNivdisci;
-
-                },))
-        
+            ->add('idNivdisci', EntityType::class,[
+                'class' => Nivdisci::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('nivdisci')
+                ->orderBy('nivdisci.idDiscipline', 'ASC');
+            },
+            ])
             ->add('adresse' , AdresseType::class );
 
     }
