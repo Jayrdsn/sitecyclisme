@@ -20,6 +20,7 @@
                 <td>{{ evenement.id }}</td>
                 <td>{{ evenement.description }}</td>
                 <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
+                //evenemt.adresse.nrue
                 <td>
                     <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>
                     <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>

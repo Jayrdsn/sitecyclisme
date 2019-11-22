@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Nivdisci;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -59,15 +59,16 @@ class User implements UserInterface
      */
     private $roles;
 
-    /**
-     * @var \Discipline
+
+     /**
+     * @var \Nivdisci
      *
-     * @ORM\ManyToOne(targetEntity="Discipline")
+     * @ORM\ManyToOne(targetEntity="Nivdisci")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_discipline", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_nivdisci", referencedColumnName="id")
      * })
      */
-    private $idDiscipline;
+    private $idNivdisci;
 
     /**
      * @var \Adresse
@@ -79,15 +80,7 @@ class User implements UserInterface
      */
     private $adresse;
 
-    /**
-     * @var \Niveau
-     *
-     * @ORM\ManyToOne(targetEntity="Niveau")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_niveau", referencedColumnName="id")
-     * })
-     */
-    private $idNiveau;
+
 
     public function getId(): ?int
     {
@@ -154,23 +147,21 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getIdDiscipline(): ?Discipline
-    {
-        return $this->idDiscipline;
-    }
-
-    public function setIdDiscipline(?Discipline $idDiscipline): self
-    {
-        $this->idDiscipline = $idDiscipline;
-
-        return $this;
-    }
-
-    public function getAdresse(): ?Adresse
+       public function getAdresse(): ?Adresse
     {
         return $this->adresse;
     }
+    public function getIdNivdisci(): ?Nivdisci
+    {
+        return $this->idNivdisci;
+    }
 
+    public function setIdNivdisci(?Nivdisci $idNivdisci): self
+    {
+        $this->idNivdisci = $idNivdisci;
+
+        return $this;
+    }
     public function setAdresse(?Adresse $adresse): self
     {
         $this->adresse = $adresse;
@@ -178,19 +169,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getIdNiveau(): ?Niveau
-    {
-        return $this->idNiveau;
-    }
-
-    public function setIdNiveau(?Niveau $idNiveau): self
-    {
-        $this->idNiveau = $idNiveau;
-
-        return $this;
-    }
-
-    // *******  contains 1 abstract method and must therefore be declared abstract ******
+     // *******  contains 1 abstract method and must therefore be declared abstract ******
 
        public function getSalt()
     {

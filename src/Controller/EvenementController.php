@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\Adresse;
 use App\Form\EvenementType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,10 +42,22 @@ class EvenementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($evenement);
+            dump( $evenement);
+        $adresse = new Adresse();
+        $adresse->setNrue($evenement->getAdresse()->getNrue());
+        $adresse->setRue($evenement->getAdresse()->getRue());
+        $adresse->setCodepostal($evenement->getAdresse()->getCodepostal());
+        $adresse->setVille($evenement->getAdresse()->getVille());
+        $entityManager->persist($adresse);
+        
+        $evenement->setAdresse($adresse);
+        $entityManager->persist($evenement);
             $entityManager->flush();
+        
 
-            return $this->redirectToRoute('evenement_index');
+        
+
+         return $this->redirectToRoute('evenement_index');
         }
 
         return $this->render('evenement/new.html.twig', [

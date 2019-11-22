@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use App\Entity\Niveau;
 use App\Entity\Discipline;
+use App\Entity\Nivdisci;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,22 +22,14 @@ class UserType extends AbstractType
             ->add('prenom')
             ->add('email')
             ->add('password')
-     //       ->add('roles')
-            ->add('idDiscipline', EntityType::class,
-                array('class' => 'App\Entity\Discipline',
-                    'label' => 'Discipline :',
-                    'choice_label' => function($idDiscipline){
-                        return $idDiscipline->getLibelle();
+            ->add('idNivdisci', EntityType::class,
+     array('class' => 'App\Entity\Nivdisci',
+     'label' => 'Discipline :',
+     'choice_label' => function($idNivdisci){
+         return $idNivdisci;
 
-                    },))
+     },))
             ->add('adresse' , AdresseType::class )
-            ->add('idNiveau', EntityType::class,
-                array('class' => 'App\Entity\Niveau',
-                 'label' => 'Niveau :',
-                'choice_label' => function($idNiveau){
-                    return $idNiveau->getNiveau();
-
-                },))
         ;
     }
 

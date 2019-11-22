@@ -69,6 +69,10 @@ class Nivdisci
 
         return $this;
     }
-
+    public function __toString()
+    {
+        $niv = "Niveau : ".(string)$this->idNiveau->getNiveau() ;
+        return  $niv."   Discipiline : ".$this->getIdDiscipline()->getLibelle() ;
+    }
 
 }
