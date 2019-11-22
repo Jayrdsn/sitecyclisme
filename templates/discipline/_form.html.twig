@@ -1,4 +1,22 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container">
+		<div class="row">
+			<div class="col-lg-8">
+		    	{{ form_row(form.libelle, {'attr': {'placeholder': "Libelle "}}) }}
+		   	</div>
+		</div>
+
+		<div class="row">
+			<div>
+    			<button type="button" class="btn btn-danger">
+    				<a href="{{ path('discipline_index') }}">❮ Previous</a>
+    			</button>
+			</div>
+			<div>
+				<button class="btn btn-danger">{{ button_label|default('Save') }}</button>
+			</div>
+		</div>
+</div>
+    
 {{ form_end(form) }}
+

@@ -6,7 +6,7 @@
     <h1>Discipline index</h1>
 
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>Id</th>
                 <th>Libelle</th>
@@ -33,5 +33,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('discipline_new') }}">Create new</a>
+    <button type="button" class="btn btn-danger">
+        <a href="{{ path('discipline_new') }}">Create new</a>
+    </button>
 {% endblock %}
