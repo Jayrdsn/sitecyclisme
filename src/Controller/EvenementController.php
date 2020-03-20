@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\User;
 use App\Entity\Adresse;
+use App\Entity\Participation;
 use App\Form\EvenementType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,13 +23,21 @@ class EvenementController extends AbstractController
     public function index(): Response
     {
 
+             if (empty($this->getUser()))
+             {
+                 return $this->redirectToRoute('app_login');
 
+             }
         $evenements = $this->getDoctrine()
-            ->getRepository(Evenement::class)
+        ->getRepository(Evenement::class)
+        ->findAll();
+        $participations = $this->getDoctrine()
+
+            ->getRepository(Participation::class)
             ->findAll();
 
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenements,
+            'evenements' => $evenements, 'participations' => $participations
         ]);
     }
 
@@ -71,8 +81,12 @@ class EvenementController extends AbstractController
      */
     public function show(Evenement $evenement): Response
     {
+
+        $participations = $this->getDoctrine()
+            ->getRepository(Participation::class)
+            ->findBy(['idEvenement'=>$evenement->getId()]);
         return $this->render('evenement/show.html.twig', [
-            'evenement' => $evenement,
+            'evenement' => $evenement, 'participations' => $participations,
         ]);
     }
 
@@ -95,9 +109,32 @@ class EvenementController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     /**
-     * @Route("/{id}", name="evenement_delete", methods={"DELETE"})
+     * @Route("/{id}/participer", name="evenement_participer", methods={"GET","POST"})
+     */
+    public function participer(Request $request, Evenement $evenement): Response
+    {
+        $participer=new Participation();
+        $participer->setIdUser($this->getUser());
+        $participer->setIdEvenement($evenement);
+        $entityManager = $this->getDoctrine()->getManager();
+        dump( $participer);
+        try {
+        $entityManager->persist($participer);
+        $entityManager->flush();
+        } catch (\Exception $e) {
+            dump($e->getMessage());
+            return $this->redirectToRoute('evenement_index' , array("erreur"=>$e->getMessage()));
+            throw $e;
+        }
+        return $this->redirectToRoute('evenement_index');
+
+
+
+
+    }
+    /**
+     * @Route("/{id}", name="evenement_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Evenement $evenement): Response
     {
@@ -108,5 +145,22 @@ class EvenementController extends AbstractController
         }
 
         return $this->redirectToRoute('evenement_index');
+    }
+
+
+    /**
+     * @Route("/{id}/deleteP", name="parti_delete", methods={"POST"})
+     */
+    public function deletep (Request $request, Evenement $evenement) :Response
+    {
+        $participation =$this->getDoctrine()
+            ->getRepository(Participation::class)
+            ->findOneBy(["idEvenement"=>$evenement->getId(),"idUser"=>$this->getUser()]);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($participation);
+                $entityManager->flush();
+
+          //return $this->redirectToRoute('evenement_index');
+        return $this->json(['success' => true]);
     }
 }

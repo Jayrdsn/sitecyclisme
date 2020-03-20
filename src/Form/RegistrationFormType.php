@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Nivdisci;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -20,6 +23,13 @@ class RegistrationFormType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('email')
+            ->add('idNivdisci', EntityType::class,[
+                'class' => Nivdisci::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('nivdisci')
+                        ->orderBy('nivdisci.idDiscipline', 'ASC');
+                },
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

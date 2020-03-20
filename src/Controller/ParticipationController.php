@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Evenement;
 use App\Entity\Participation;
 use App\Form\ParticipationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -92,6 +93,6 @@ class ParticipationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('participation_index');
+        return $this->redirectToRoute('evenement_index');
     }
 }

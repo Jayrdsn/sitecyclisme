@@ -8,21 +8,19 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Libelle</th>
+                <th>DISCIPLINE</th>
 
-                <th>actions</th>
+                <th>MODIFIER DISCIPLINE</th>
             </tr>
         </thead>
         <tbody>
         {% for discipline in disciplines %}
             <tr>
-                <td>{{ discipline.id }}</td>
                 <td>{{ discipline.libelle }}</td>
 
                 <td>
-                    <a href="{{ path('discipline_show', {'id': discipline.id}) }}">show</a>
-                    <a href="{{ path('discipline_edit', {'id': discipline.id}) }}">edit</a>
+                    <a href="{{ path('discipline_show', {'id': discipline.id}) }}">VOIR</a>
+                    <a href="{{ path('discipline_edit', {'id': discipline.id}) }}">MODIFIER</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('discipline_new') }}">Create new</a>
+    <a href="{{ path('discipline_new') }}">Nouvelle discipline</a>
 {% endblock %}

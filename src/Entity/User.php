@@ -21,6 +21,7 @@ class User implements UserInterface
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
      */
     private $id;
 
@@ -181,11 +182,34 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
-
-    public function getUsername()
+    public function serialize()
     {
-        return $this->username;
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
     }
 
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+    public function getUsername()
+    {
+    }
+    public function toString()
+    {
+        return $this->id;
+    }
 
 }

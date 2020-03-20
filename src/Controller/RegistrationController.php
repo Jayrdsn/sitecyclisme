@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Evenement;
+use App\Entity\Participation;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
@@ -17,6 +19,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
+
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
         $user = new User();
@@ -31,7 +34,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setRoles(["ROLE_USER"]);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -50,4 +53,5 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
 }

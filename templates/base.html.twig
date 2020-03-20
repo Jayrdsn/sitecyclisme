@@ -3,11 +3,99 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     </head>
-    <body>
 
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav mr-auto">
+                       <li class="nav-item active">
+                           <a class="nav-link" href={{path('evenement_index')}}>Home <span class="sr-only">(current)</span></a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="#">User</a>
+                       </li>
+                    </ul>
+                </div>
+
+                <ul class="navbar-nav">
+                    {% if not app.user %}
+                        <li class="nav-item">
+                            <a id="conn" class="nav-link" href="{{path('app_login')}}">Se connecter</a>
+                        </li>
+
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Bonjour {{ app.user.nom }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="deconn" class="nav-link" href="{{path('app_logout')}}">Se déconnecter</a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                {#  <a id="conn" class="nav-link" href="{{path('connecter')}}">Se connecter</a> #}
+                {#  <a id="deconn" class="nav-link" href="{{path('deconnecter')}}">Se déconnecter</a> #}
+            </div>
+        </nav>
+
+        <main>
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+        </main>
+
+        <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+        <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
+        <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script>
+            $(document).ready( function(){
+                $('[data-toggle="tooltip"]').tooltip(); //animation au dessus des boutons
+
+                $('.js-datatable').DataTable({
+                    "language": {
+                        "sEmptyTable":     "Aucune donnée disponible dans le tableau",
+                        "sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                        "sInfoEmpty":      "Affichage de l'élément 0 à 0 sur 0 élément",
+                        "sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
+                        "sInfoPostFix":    "",
+                        "sInfoThousands":  ",",
+                        "sLengthMenu":     "Afficher _MENU_ éléments",
+                        "sLoadingRecords": "Chargement...",
+                        "sProcessing":     "Traitement...",
+                        "sSearch":         "Rechercher :",
+                        "sZeroRecords":    "Aucun élément correspondant trouvé",
+                        "oPaginate": {
+                            "sFirst":    "Premier",
+                            "sLast":     "Dernier",
+                            "sNext":     "Suivant",
+                            "sPrevious": "Précédent"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                            "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                        },
+                        "select": {
+                            "rows": {
+                                "_": "%d lignes sélectionnées",
+                                "0": "Aucune ligne sélectionnée",
+                                "1": "1 ligne sélectionnée"
+                            }
+                        }
+                    }
+                });
+            })
+        </script>
+        {% block javascripts %}
+
+        {% endblock %}
+</body>
 </html>

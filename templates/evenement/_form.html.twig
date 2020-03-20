@@ -3,10 +3,10 @@
 {{ form_row(form.dateDebut) }}
 {{ form_row(form.dateFin) }}
 {{ form_row(form.idNivdisci) }}
-
+{{ form_row(form.adresse.nrue) }}
 
 <ul class="tags">
-    {# iterate over each existing tag and render its only field: name #}
+    {# iterate over each existing tag and render its only field: name#}
 
     <li>{{ form_row(form.adresse.nrue) }}</li>
     <li>{{ form_row(form.adresse.rue) }}</li>
@@ -17,3 +17,4 @@
 </ul>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+

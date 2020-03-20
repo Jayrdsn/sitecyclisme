@@ -1,0 +1,28 @@
+@import "bootstrap.min.css";
+
+body {
+    background-color: lightgray;
+}
+
+main > .container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background: #FFFFFF;
+    padding : 2%;
+}
+
+.title_page {
+    color : #00aa88;
+    font-weight : 700;
+}
+
+table th {
+    text-align: center;
+    text-transform: uppercase;
+    color : #00aa88;
+}
+
+table td {
+    vertical-align: middle !important;
+    text-align: center;
+}

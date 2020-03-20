@@ -3,36 +3,138 @@
 {% block title %}Evenement index{% endblock %}
 
 {% block body %}
-    <h1>Evenement index</h1>
+    <h1 class="title_page">Evenement </h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>DateDebut</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for evenement in evenements %}
-            <tr>
-                <td>{{ evenement.id }}</td>
-                <td>{{ evenement.description }}</td>
-                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
-                //evenemt.adresse.nrue
-                <td>
-                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>
-                    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row mt-2 mb-4">
+        <div class="col-12 text-right">
+            <a href="{{ path('evenement_new') }}"
+               title="Créer un évenement" data-toggle="tooltip"
+               class="btn btn-secondary ">
+                <i class="fa fa-plus"></i> Create new
+            </a>
+        </div>
+    </div>
 
-    <a href="{{ path('evenement_new') }}">Create new</a>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered js-datatable" id="tableEvents">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Date de debut</th>
+                            <th>Date de fin</th>
+                            <th>Niveau / Discipline</th>
+                            <th>Adresse</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for evenement in evenements %}
+                            <tr>
+                                <td class="text-left">{{ evenement.description }}</td>
+                                <td>{{ evenement.datedebut|date("m/d/Y") }}</td>
+                                <td>{{ evenement.datefin|date("m/d/Y")}}</td>
+                                <td>{{ evenement.idNivdisci }}</td>
+                                <td>
+                                    {{ evenement.adresse.nrue ~ ' '~ evenement.adresse.rue }}<br/>
+                                    {{ evenement.adresse.codepostal ~ ' '~ evenement.adresse.ville}}
+                                </td>
+                                <td>
+                                        <a href="{{ path('evenement_show', {'id': evenement.id}) }}"
+                                           class="btn btn-info" title="Afficher" data-toggle="tooltip">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+
+                                        <a href="{{ path('evenement_edit', {'id': evenement.id}) }}"
+                                           class="btn btn-warning"  title="Editer" data-toggle="tooltip">
+                                            <i class="far fa-edit"></i>
+
+                                        </a>
+
+
+                                    {% set break = false %}
+                                        {% for participe in participations %}
+                                            {% if  participe.idEvenement.id == evenement.id and participe.idUser.id == app.user.id %}
+                                                {% set break = true %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    {% if  break == false %}
+                                        <a href="{{ path('evenement_participer', {'id': evenement.id}) }}" onsubmit="return confirm('Vous êtes bien inscrit');"
+                                           class="btn btn-success" title="Participer" data-toggle="tooltip">
+                                            <i class="fas fa-check"></i>
+                                        </a>
+
+                                        {% else %}
+
+                                        <a href="{{ path('parti_delete', {'id': evenement.id}) }}";
+                                               class="btn btn-danger js-add-event" title="Supprimer" data-toggle="tooltip">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        $('.js-add-event').on('click', function(e){
+            e.preventDefault();
+
+            let that = $(e.currentTarget),
+                href = that.attr('href');
+
+            Swal.fire({
+                title: 'Êtes vous sure?',
+                text: "Vous ne pourrez pas revenir en arrière!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url : href,
+                        method: 'POST',
+                        dataType : 'JSON',
+                        success : function(data) {
+                            if(data.success)
+                            {
+                                Swal.fire(
+                                    'Supprimé !',
+                                    'Votre participation a été supprimée.',
+                                    'success'
+                                ).then( (result) => {
+                                    if(result.value) {
+                                        window.location.reload(true);
+                                    }
+                                })
+                            }
+                        },
+                        error : function (error) {
+                            Swal.fire(
+                                'Attention',
+                                'Une erreur .....',
+                                'error'
+                            )
+                        }
+                    })
+
+
+
+                }
+            })
+        });
+
+    </script>
 {% endblock %}

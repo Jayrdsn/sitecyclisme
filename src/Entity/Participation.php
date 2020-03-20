@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use App\Entity\Nivdisci;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\ParticipationRepository;
@@ -23,49 +24,56 @@ class Participation
     private $id;
 
     /**
-     * @var int
+     * @var \User
      *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * })
      */
     private $idUser;
 
     /**
-     * @var \User
+     * @var \Evenement
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Evenement")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_niveau", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_evenement", referencedColumnName="id")
      * })
      */
-    private $idNiveau;
+    private $idEvenement;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdUser(): ?int
+    public function getIdUser(): ?User
     {
         return $this->idUser;
     }
 
-    public function setIdUser(int $idUser): self
+    public function setIdUser(User $idUser): self
     {
         $this->idUser = $idUser;
 
         return $this;
     }
 
-    public function getIdNiveau(): ?User
+    public function getIdEvenement(): ?Evenement
     {
-        return $this->idNiveau;
+        return $this->idEvenement;
     }
 
-    public function setIdNiveau(?User $idNiveau): self
+    public function setIdEvenement(?Evenement $idEvenement): self
     {
-        $this->idNiveau = $idNiveau;
+        $this->idEvenement = $idEvenement;
 
         return $this;
+    }
+    public function toString()
+    {
+        return  $this->idUser;
     }
 
 
