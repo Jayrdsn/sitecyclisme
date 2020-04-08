@@ -1,18 +1,17 @@
+<ul class="tags">
+
+
 {{ form_start(form) }}
 {{ form_row(form.description) }}
 {{ form_row(form.dateDebut) }}
 {{ form_row(form.dateFin) }}
 {{ form_row(form.idNivdisci) }}
 {{ form_row(form.adresse.nrue) }}
+{{ form_row(form.adresse.rue) }}
+{{ form_row(form.adresse.codepostal) }}
+{{ form_row(form.adresse.ville) }}
 
-<ul class="tags">
     {# iterate over each existing tag and render its only field: name#}
-
-    <li>{{ form_row(form.adresse.nrue) }}</li>
-    <li>{{ form_row(form.adresse.rue) }}</li>
-    <li>{{ form_row(form.adresse.codepostal) }}</li>
-    <li>{{ form_row(form.adresse.ville) }}</li>
-
 
 </ul>
     <button class="btn">{{ button_label|default('Save') }}</button>

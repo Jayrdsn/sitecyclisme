@@ -13,30 +13,19 @@
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav mr-auto">
-                       <li class="nav-item active">
-                           <a class="nav-link" href={{path('evenement_index')}}>Home <span class="sr-only">(current)</span></a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="#">User</a>
-                       </li>
+                        <li class="nav-item dropdown">
+                                <a class="btn btn-info nav-link dropdown-toggle" id="navbarDropdown"  style="font-size: 25px" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"title="Profil" data-toggle="tooltip">
+                                    <i class="fas fa-address-card"> </i>
+                                    {% if not app.user.nom %}
+                                        {{ render('/login') }}
+                                    {% else %}
+                                    Bonjour {{ app.user.nom }}
+                                    {% endif %}
+                                 <a/>
                     </ul>
                 </div>
 
-                <ul class="navbar-nav">
-                    {% if not app.user %}
-                        <li class="nav-item">
-                            <a id="conn" class="nav-link" href="{{path('app_login')}}">Se connecter</a>
-                        </li>
 
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Bonjour {{ app.user.nom }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="deconn" class="nav-link" href="{{path('app_logout')}}">Se déconnecter</a>
-                        </li>
-                    {% endif %}
-                </ul>
 
                 {#  <a id="conn" class="nav-link" href="{{path('connecter')}}">Se connecter</a> #}
                 {#  <a id="deconn" class="nav-link" href="{{path('deconnecter')}}">Se déconnecter</a> #}
@@ -45,7 +34,8 @@
 
         <main>
             <div class="container">
-                {% block body %}{% endblock %}
+                {% block body %}
+                    {% endblock %}
             </div>
         </main>
 
