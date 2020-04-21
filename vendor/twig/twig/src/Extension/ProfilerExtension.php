@@ -16,6 +16,7 @@ use Twig\Profiler\Profile;
 
 class ProfilerExtension extends AbstractExtension
 {
+
     private $actives = [];
 
     public function __construct(Profile $profile)
